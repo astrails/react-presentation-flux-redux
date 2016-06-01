@@ -1,0 +1,41 @@
+{
+  parser: "babel-eslint",
+  "extends": "airbnb",
+  "env": {
+    "node": true,
+    "browser": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "ecmaFeatures": {
+      "jsx": true,
+      "experimentalObjectRestSpread": true
+    }
+  },
+  "rules": {
+    "comma-dangle": 0,
+    "react/sort-comp": 0,
+    "quotes": 0,
+    "max-len": [2, 150, 2, {
+      "ignoreUrls": true,
+      "ignoreComments": false
+    }],
+    "react/prop-types": 0,
+    "react/jsx-curly-spacing": [2, "always"],
+    "no-unused-vars": 2,
+    /*"react/prop-types": [1, { "ignore": [], "customValidators": [] }],*/
+    "no-multi-spaces": 0,
+    "prefer-rest-params": 0,
+    "no-underscore-dangle": 0,
+    "newline-per-chained-call": 0,
+    "import/no-unresolved": 0,
+    "yoda": 0,
+    "key-spacing": 0,
+    "one-var": 0,
+    "no-console": 0,
+    "one-var-declaration-per-line": 0,
+    "no-use-before-define": 1,
+    "no-unused-expressions": [2, { "allowShortCircuit": true, "allowTernary": true }],
+    "new-cap": [2, { 'newIsCap': true, "capIsNewExceptions": ["List", "Immutable", "Map"] }]
+  }
+}
