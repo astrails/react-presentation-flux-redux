@@ -1,8 +1,11 @@
-import React, { Component } from 'react';
-import FormActions from 'fluxx/actions/form';
+import React, { Component, PropTypes } from 'react';
 
 export default class Form extends Component {
   static displayName = "Form";
+
+  static propTypes = {
+    addLocation: PropTypes.func.isRequired
+  };
 
   constructor() {
     super(...arguments);
@@ -13,7 +16,7 @@ export default class Form extends Component {
 
   onSubmit(e) {
     e.preventDefault();
-    FormActions.addLocation(this.state.value);
+    this.props.addLocation(this.state.value);
     this.setState({ value: "" });
   }
 

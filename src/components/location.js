@@ -1,51 +1,44 @@
-import React, { Component } from 'react';
+import React from 'react';
 import classes from './location.sass';
-import LocationActions from 'fluxx/actions/location';
 
-export default class Location extends Component {
-  constructor() {
-    super(...arguments);
-    this.removeLocation = this.removeLocation.bind(this);
-    this.refreshLocation = this.refreshLocation.bind(this);
-  }
-
-  removeLocation(e) {
+const Location = ({ remove, refresh, status, temperature, icon_url: iconUrl, text, location, uniqId }) => {
+  const removeLocation = (e) => {
     e.preventDefault();
-    LocationActions.remove(this.props.uniqId);
-  }
+    remove(uniqId);
+  };
 
-  refreshLocation(e) {
+  const refreshLocation = (e) => {
     e.preventDefault();
-    LocationActions.refresh(this.props.uniqId);
-  }
+    refresh(uniqId);
+  };
 
-  renderState() {
-    if (this.props.status !== "ok") {
+  const renderState = () => {
+    if (status !== "ok") {
       return (
-        <div className={ classes.state }>{ this.props.status }</div>
+        <div className={ classes.state }>{ status }</div>
       );
     }
 
-    const message = `${this.props.text} ${this.props.temperature}`;
+    const message = `${text} ${temperature}`;
 
     return (
       <div className={ classes.state }>
-        <img src={ this.props.icon_url } alt="this.props.text" />
+        <img src={ iconUrl } alt={ text } />
         <span>{ message }&#8451;</span>
-        <a className={ classes.refresh } href="#" onClick={ this.refreshLocation }>refresh</a>
+        <a className={ classes.refresh } href="#" onClick={ refreshLocation }>refresh</a>
       </div>
     );
-  }
+  };
 
-  render() {
-    return (
-      <div className={ classes.location }>
-        <a className={ classes.remove } href="#" onClick={ this.removeLocation }>&times;</a>
-        <div className={ classes.name }>
-          { this.props.location }
-        </div>
-        { this.renderState() }
+  return (
+    <div className={ classes.location }>
+      <a className={ classes.remove } href="#" onClick={ removeLocation }>&times;</a>
+      <div className={ classes.name }>
+        { location }
       </div>
-    );
-  }
-}
+      { renderState() }
+    </div>
+  );
+};
+
+export default Location;

@@ -1,7 +1,7 @@
 import SuperAgent from 'superagent';
-import LocationActions from 'fluxx/actions/location';
-import HackerNewsActions from 'fluxx/actions/hacker_news';
+import { storyFetched } from 'fluxx/actions/hacker_news';
 import APIKEY from 'config/apikey';
+import { querySuccess, queryFailed } from 'fluxx/actions/location';
 
 const isSuccess = (res) => (res && res.statusCode && [200, 201].indexOf(res.statusCode) !== -1);
 
@@ -11,10 +11,10 @@ const RemoteApi = {
       end((error, res) => {
         if (isSuccess(res)) {
           setTimeout(() => {
-            LocationActions.querySuccess(res.body, location);
+            querySuccess(res.body, location);
           }, 500);
         } else {
-          LocationActions.queryFailed(res);
+          queryFailed(res);
         }
       });
   },
@@ -34,7 +34,7 @@ const RemoteApi = {
     SuperAgent.get(`https://hacker-news.firebaseio.com/v0/item/${id}.json?print=pretty`).
       end((error, res) => {
         if (isSuccess(res)) {
-          HackerNewsActions.storyFetched(id, res.body);
+          storyFetched(id, res.body);
         } else {
           // TODO handle error
         }

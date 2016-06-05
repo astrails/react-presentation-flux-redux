@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import classes from './hacker_news.sass';
 import NewsEntry from 'components/news_entry';
 import HackerNewsStore from 'fluxx/stores/hacker_news';
-import HackerNewsActions from 'fluxx/actions/hacker_news';
+import { fetch } from 'fluxx/actions/hacker_news';
 
 export default class HackerNews extends Component {
   constructor() {
@@ -12,7 +12,7 @@ export default class HackerNews extends Component {
   }
 
   componentDidMount() {
-    HackerNewsActions.fetch();
+    fetch();
   }
 
   componentWillMount() {
@@ -24,7 +24,6 @@ export default class HackerNews extends Component {
   }
 
   onNewsUpdated() {
-    console.log("on news updated", HackerNewsStore.getNews());
     this.setState(HackerNewsStore.getNews());
   }
 
