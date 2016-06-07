@@ -2,13 +2,10 @@ import React from 'react';
 import Form from 'components/form';
 import Locations from 'components/locations';
 
-import { addLocation } from 'fluxx/actions/form';
-import { refresh, remove } from 'fluxx/actions/location';
-
-const Weather = () => (
+const Weather = ({ addLocation, refresh, remove, locations }) => (
   <div>
     <Form addLocation={ addLocation } />
-    <Locations remove={ remove } refresh={ refresh } />
+    <Locations remove={ remove } refresh={ refresh } locations={ locations } />
   </div>
 );
 

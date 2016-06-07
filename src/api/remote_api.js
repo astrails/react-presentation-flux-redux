@@ -1,25 +1,23 @@
 import SuperAgent from 'superagent';
-import { storyFetched } from 'fluxx/actions/hacker_news';
 import APIKEY from 'config/apikey';
-import { querySuccess, queryFailed } from 'fluxx/actions/location';
 
 const isSuccess = (res) => (res && res.statusCode && [200, 201].indexOf(res.statusCode) !== -1);
 
 const RemoteApi = {
-  queryTheWeather: (location) => {
+  queryTheWeather: ({ payload: { location }, onSuccess, onFailure }) => {
     SuperAgent.get(`http://api.openweathermap.org/data/2.5/weather?q=${location}&APPID=${APIKEY}`).set('Accept', 'application/json').
       end((error, res) => {
         if (isSuccess(res)) {
           setTimeout(() => {
-            querySuccess(res.body, location);
+            onSuccess(res.body);
           }, 500);
         } else {
-          queryFailed(res);
+          onFailure(res);
         }
       });
   },
 
-  fetchTopStories: (onSuccess) => {
+  fetchTopStories: ({ onSuccess /* , onFailure */ }) => {
     SuperAgent.get('https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty').
       end((error, res) => {
         if (isSuccess(res)) {
@@ -30,11 +28,11 @@ const RemoteApi = {
       });
   },
 
-  fetchStory: (id) => {
+  fetchStory: ({ payload: { id }, onSuccess /* , onFailure */ }) => {
     SuperAgent.get(`https://hacker-news.firebaseio.com/v0/item/${id}.json?print=pretty`).
       end((error, res) => {
         if (isSuccess(res)) {
-          storyFetched(id, res.body);
+          onSuccess(res.body);
         } else {
           // TODO handle error
         }

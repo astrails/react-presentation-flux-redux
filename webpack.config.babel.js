@@ -50,8 +50,9 @@ const COMMON = {
     modulesDirectories: ["node_modules"],
     alias: {
       components: path.resolve(APP_PATH, 'components'),
+      containers: path.resolve(APP_PATH, 'containers'),
       api:        path.resolve(APP_PATH, 'api'),
-      fluxx:      path.resolve(APP_PATH, 'fluxx'),
+      reduxx:     path.resolve(APP_PATH, 'reduxx'),
       constants:  path.resolve(APP_PATH, 'constants'),
       config:     path.resolve(APP_PATH, 'config'),
     }

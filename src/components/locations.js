@@ -1,37 +1,14 @@
-import React, { Component, PropTypes } from 'react';
-import LocationsStore from 'fluxx/stores/locations';
+import React from 'react';
 import Location from 'components/location';
 import classes from './locations.sass';
 
-export default class Locations extends Component {
-  static propTypes = {
-    remove: PropTypes.func.isRequired,
-    refresh: PropTypes.func.isRequired
-  };
+const Locations = ({ locations, refresh, remove }) => {
+  const props = { refresh, remove };
+  return (
+    <div className={ classes.locations }>
+      { locations.map(location => <Location { ...props } { ...location } key={ location.uniqId } />) }
+    </div>
+  );
+};
 
-  constructor() {
-    super(...arguments);
-    this.state = LocationsStore.getLocations();
-    this.onLocationsChanged = this.onLocationsChanged.bind(this);
-  }
-
-  componentWillMount() {
-    LocationsStore.addChangeListener(this.onLocationsChanged);
-  }
-
-  componentWillUnmount() {
-    LocationsStore.removeChangeListener(this.onLocationsChanged);
-  }
-
-  onLocationsChanged() {
-    this.setState(LocationsStore.getLocations());
-  }
-
-  render() {
-    return (
-      <div className={ classes.locations }>
-        { this.state.locations.map(location => <Location { ...this.props } { ...location } key={ location.uniqId } />) }
-      </div>
-    );
-  }
-}
+export default Locations;
