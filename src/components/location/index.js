@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import classes from './location.sass';
 
 const Location = ({ remove, refresh, status, temperature, icon_url: iconUrl, text, location, uniqId }) => {
@@ -39,6 +39,17 @@ const Location = ({ remove, refresh, status, temperature, icon_url: iconUrl, tex
       { renderState() }
     </div>
   );
+};
+
+Location.propTypes = {
+  remove: PropTypes.func.isRequired,
+  refresh: PropTypes.func.isRequired,
+  status: PropTypes.string.isRequired,
+  temperature: PropTypes.number,
+  icon_url: PropTypes.string,
+  text: PropTypes.string,
+  location: PropTypes.string.isRequired,
+  uniqId: PropTypes.string.isRequired
 };
 
 export default Location;

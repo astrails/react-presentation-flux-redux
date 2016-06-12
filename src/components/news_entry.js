@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 
 const NewsEntry = ({ id, title }) => {
   if (title) {
@@ -12,6 +12,11 @@ const NewsEntry = ({ id, title }) => {
   return (
     <div>Loading entry data...</div>
   );
+};
+
+NewsEntry.propTypes = {
+  id: PropTypes.number.isRequired,
+  title: PropTypes.string
 };
 
 export default NewsEntry;
